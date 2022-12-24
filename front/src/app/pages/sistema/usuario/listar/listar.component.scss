@@ -1,0 +1,20 @@
+@import '../../../../@theme/styles/themes';
+
+@include nb-install-component() {
+  button[nbButton] {
+    margin-top : 2px;
+    margin-left: 2px;
+  }
+
+  input[nbInput] {
+    height: 42px;
+  }
+
+  nb-card-body {
+    min-height: 500px;
+  }
+
+  nb-card {
+    transform: translate3d(0, 0, 0);
+  }
+}

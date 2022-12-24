@@ -1,0 +1,73 @@
+<nb-card>
+  <nb-card-header>
+    <h4>
+      Registro de documento relacionado a spc Licitación: {{ documentosearch }}
+    </h4>
+  </nb-card-header>
+  <nb-card-body>
+    <div [formGroup]="seguimientospcForm" class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <label for="input-descripcion" class="label">Selección de archivos <span class="required">(*)</span></label>
+          <input type="file" id="file" formControlName="file" nbInput webkitdirectory multiple fullWidth
+          (change)="getDirectory($event)">
+          <div id="output"></div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="input-formarecepcion" class="label">Forma de recepción <span class="required">(*)</span></label>
+            <nb-select autofocus fullWidth fieldSize="medium" id="input-formarecepcion" formControlName="formarecepcion"
+              [status]="formarecepcion.dirty ? (formarecepcion.invalid  ? 'danger' : 'success') : 'primary'">
+              <nb-option value="Email">Correo</nb-option>
+              <nb-option value="Usb">USB</nb-option>
+            </nb-select>
+            <ngx-validation-message label="Forma de recepcion"
+              [showRequired]="formarecepcion.errors?.required && formarecepcion.touched">
+            </ngx-validation-message>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="input-descripcion" class="label">Descripción <span class="required">(*)</span></label>
+            <input nbInput fullWidth fieldSize="medium" formControlName="descripcion"
+              [status]="descripcion.dirty ? (descripcion.invalid  ? 'danger' : 'success') : 'primary'" />
+            <ngx-validation-message label="Descripción" [showMinLength]="descripcion.hasError('minlength')"
+              [showRequired]="descripcion.errors?.required && descripcion.touched" minLength=4>
+            </ngx-validation-message>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="input-observacion" class="label">Observaciones <span class="required">(*)</span></label>
+            <input nbInput fullWidth fieldSize="medium" formControlName="observacion"
+              [status]="observacion.dirty ? (observacion.invalid  ? 'danger' : 'success') : 'primary'" />
+            <ngx-validation-message label="Observaciones" [showMinLength]="observacion?.hasError('minlength')"
+              [showRequired]="observacion?.errors?.required && observacion.touched" minLength=4>
+            </ngx-validation-message>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+    <div class="row">
+      <div class="col-lg-10 col-xs-12 text-left">
+        <span class="required" style="padding: 10px;">Campos Obligatorios <strong>(*)</strong></span>
+      </div>
+      <div class="col-lg-2 col-xs-12 text-right">
+        <button nbButton status="primary" [disabled]="!seguimientospcForm.valid" (click)="save()" outline
+          (click)="startLoading()" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="tiny"
+          nbSpinnerMessage="">GUARDAR</button>
+      </div>
+    </div>
+  </nb-card-footer>
+</nb-card>

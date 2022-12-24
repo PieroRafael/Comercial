@@ -1,0 +1,9 @@
+<nb-card size="small">
+    <nb-card-header>Visualizacion de archivos</nb-card-header>
+    <nb-card-body>
+        <button nbButton status="primary" (click)="retroceder()" outline>Volver</button>
+        <ng2-smart-table class="example-smart-table" [settings]="settings_modal" [source]="source"
+            (rowSelect)="dblclick($event)">
+        </ng2-smart-table>
+    </nb-card-body>
+</nb-card>

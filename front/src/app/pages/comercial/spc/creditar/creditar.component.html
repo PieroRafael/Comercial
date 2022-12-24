@@ -1,0 +1,259 @@
+<nb-card>
+  <nb-card-header>
+    <h4>
+      Registro de nueva SPC
+    </h4>
+  </nb-card-header>
+  <nb-card-body>
+    <div [formGroup]="spcForm" class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="input-codigo" class="label">Código <span class="required">(*)</span></label>
+            <input class="form-control" [readonly]="codigoread" nbInput fullWidth autofocus fieldSize="medium" formControlName="codigo"
+              [status]="(codigo?.errors?.required || codigo?.hasError('minLength') ||
+              codigo?.hasError('maxLength')) && codigo.touched || codigo.dirty ? (codigo.invalid  ? 'danger' : 'success') : 'primary'">
+            <ngx-validation-message label="Codigo" [showMinLength]="codigo?.hasError('minlength')"
+              [showMaxLength]="codigo?.hasError('maxlength')"
+              [showRequired]="codigo?.errors?.required && codigo.touched" minLength=7 maxLength=7>
+            </ngx-validation-message>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="input-cliente" class="label">Cliente <span class="required">(*)</span></label>
+            <input #autoInput class="form-control" nbInput fullWidth fieldSize="medium" formControlName="razonsocial"
+              (input)="onChange()" [nbAutocomplete]="cliente"
+              [status]="razonsocial.dirty ? (razonsocial.invalid  ? 'danger' : 'success') : 'primary'" />
+            <nb-autocomplete #cliente (selectedChange)="onSelectionChange($event)">
+              <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option.razonsocial">
+                {{ option.razonsocial }}
+              </nb-option>
+            </nb-autocomplete>
+            <ngx-validation-message label="Cliente"
+              [showRequired]="razonsocial?.errors?.required && razonsocial.touched">
+            </ngx-validation-message>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="input-proyecto" class="label">Proyecto <span class="required">(*)</span></label>
+            <input class="form-control" [readonly]="proyectoread" nbInput fullWidth fieldSize="medium" formControlName="proyecto"
+              [status]="proyecto.dirty ? (proyecto.invalid  ? 'danger' : 'success') : 'primary'">
+            <ngx-validation-message label="Proyecto" [showRequired]="proyecto?.errors?.required && proyecto.touched">
+            </ngx-validation-message>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="input-vendedor" class="label">Vendedor <span class="required">(*)</span></label>
+            <nb-select autofocus fullWidth fieldSize="medium" id="input-vendedor" formControlName="vendedor"
+              [status]="vendedor?.errors?.required && vendedor.dirty ? (vendedor.invalid  ? 'danger' : 'success') : 'basic'">
+              <nb-option [value]="vendedor.nombre" *ngFor="let vendedor of vendedorSelect">
+                <td> {{ vendedor.nombre }} </td>
+              </nb-option>
+            </nb-select>
+            <ngx-validation-message label="Vendedor" [showRequired]="vendedor?.errors?.required && vendedor.touched">
+            </ngx-validation-message>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <ng-template [ngIf]="requeridofechac">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="input-fechaactual" class="label">Fecha de entrada SPC</label>
+              <label for="" style="display: block;" > {{fechahoy}} </label>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template [ngIf]="requeridofechae">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="input-fecha" class="label">Fecha de entrada SPC</label>
+              <input class="form-control" [readonly]="fecharead" nbInput status="primary" formControlName="fecha" fullWidth
+                [status]="fecha.dirty ? (fecha.invalid  ? 'danger' : 'success') : 'basic'" />
+            </div>
+          </div>
+        </ng-template>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="input-fechaenviodeconsulta" class="label">Envio de consultas <span class="required">(*)</span></label>
+            <input class="form-control" [nbDatepicker]="datepicker" nbInput status="primary"
+              formControlName="fechaenviodeconsulta" fullWidth
+              [status]="fechaenviodeconsulta.dirty ? (fechaenviodeconsulta.invalid  ? 'danger' : 'success') : 'basic'" />
+            <nb-datepicker #datepicker [min]="minfecha"[max]="maxfecha"
+            ></nb-datepicker>
+            <ngx-validation-message label="Fecha de envio de consultas"
+              [showRequired]="fechaenviodeconsulta.errors?.required && fechaenviodeconsulta.touched">
+            </ngx-validation-message>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="input-fechaabsolucion" class="label">Fecha de absolución <span class="required">(*)</span></label>
+            <input class="form-control" [nbDatepicker]="datepicker1" nbInput status="primary"
+              formControlName="fechaabsolucion" fullWidth
+              [status]="fechaabsolucion.dirty ? (fechaabsolucion.invalid  ? 'danger' : 'success') : 'basic'" />
+            <nb-datepicker #datepicker1 [min]="minfecha"[max]="maxfecha"
+            ></nb-datepicker>
+            <ngx-validation-message label="Fecha de absolución"
+              [showRequired]="fechaabsolucion.errors?.required && fechaabsolucion.touched">
+            </ngx-validation-message>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="input-fechaentrega" class="label">Fecha de entrega <span class="required">(*)</span></label>
+            <input class="form-control" [nbDatepicker]="datepicker2" nbInput status="primary"
+              formControlName="fechaentrega" fullWidth
+              [status]="fechaentrega.dirty ? (fechaentrega.invalid  ? 'danger' : 'success') : 'basic'" />
+            <nb-datepicker #datepicker2 [min]="minfecha"[max]="maxfecha"
+            ></nb-datepicker>
+            <ngx-validation-message label="Fecha de entrega"
+              [showRequired]="fechaentrega.errors?.required && fechaentrega.touched">
+            </ngx-validation-message>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="input-fechavisitatecnica" class="label">Fecha de visita técnica <span class="required">(*)</span></label>
+            <input class="form-control" [nbDatepicker]="datepicker3" nbInput status="primary"
+              formControlName="fechavisitatecnica" fullWidth
+              [status]="fechavisitatecnica.dirty ? (fechavisitatecnica.invalid  ? 'danger' : 'success') : 'basic'" />
+            <nb-datepicker #datepicker3 [min]="minfecha"[max]="maxfecha"
+            ></nb-datepicker>
+            <ngx-validation-message label="Fecha de visita tecnica"
+              [showRequired]="fechavisitatecnica.errors?.required && fechavisitatecnica.touched">
+            </ngx-validation-message>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="input-fechareunion" class="label">Fecha de reunión <span class="required">(*)</span></label>
+            <input class="form-control" [nbDatepicker]="datepicker4" nbInput status="primary"
+              formControlName="fechareunion" fullWidth
+              [status]="fechareunion.dirty ? (fechareunion.invalid  ? 'danger' : 'success') : 'basic'" />
+            <nb-datepicker #datepicker4 [min]="minfecha"[max]="maxfecha"
+            ></nb-datepicker>
+            <ngx-validation-message label="Fecha de reunión"
+              [showRequired]="fechareunion.errors?.required && fechareunion.touched">
+            </ngx-validation-message>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="input-tipo" class="label">Tipo <span class="required">(*)</span></label>
+            <nb-select fullWidth fieldSize="medium" id="input-tipo" formControlName="tipo"
+              [status]="tipo.dirty ? (tipo.invalid  ? 'danger' : 'success') : 'primary'">
+              <nb-option value="Suma Alzada">Suma Alzada</nb-option>
+              <nb-option value="Precios Unitarios">Precios Unitarios</nb-option>
+            </nb-select>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="input-ubicacion" class="label">Ubicacion <span class="required">(*)</span></label>
+            <input class="form-control" nbInput fullWidth fieldSize="medium" formControlName="ubicacion"
+              [status]="ubicacion.dirty ? (ubicacion.invalid  ? 'danger' : 'success') : 'primary'">
+            <ngx-validation-message label="Ubicación" [showRequired]="ubicacion?.errors?.required && ubicacion.touched">
+            </ngx-validation-message>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <nb-accordion>
+            <nb-accordion-item #item>
+              <nb-accordion-item-header>
+                      Persona a quien se dirige el presupuesto
+                  </nb-accordion-item-header>
+                <nb-accordion-item-body class="card-listar">
+                <div class="row">
+                  <div class="col-md-12 text-right">
+                    <button nbButton status="primary" (rowSelect)="onRowSelectId($event)"
+                      (click)="accion('openModalpresupuesto')">
+                      <nb-icon icon="plus"></nb-icon>
+                    </button>
+                    <button nbButton status="primary" (click)="eliminarTable('consulta')">
+                      <nb-icon icon="trash"></nb-icon>
+                    </button>
+                  </div>
+                </div>
+                <ng2-smart-table [settings]="settings_receptor" [source]="receptor" (rowSelect)="onRowTable($event)"
+                                      (createConfirm)="onCreateConfirmreceptor($event)"
+                   (editConfirm)="onSaveConfirmreceptor($event)"
+                                      (deleteConfirm)="onDeleteConfirmreceptor($event)">
+                </ng2-smart-table>
+              </nb-accordion-item-body>
+            </nb-accordion-item>
+
+            <nb-accordion-item #item>
+              <nb-accordion-item-header>
+                      Persona a quien se dirigen las consultas técnicas
+                  </nb-accordion-item-header>
+                <nb-accordion-item-body class="card-listar">
+                <div class="row">
+                  <div class="col-md-12 text-right">
+                    <button nbButton status="primary" (click)="accion('openModalconsultas')">
+                      <nb-icon icon="plus"></nb-icon>
+                    </button>
+                    <button nbButton status="primary" (click)="eliminarTable('tecnica')">
+                      <nb-icon icon="trash"></nb-icon>
+                    </button>
+                  </div>
+                </div>
+                   <ng2-smart-table [settings]="settings_consultor" [source]="consultor"
+                  (rowSelect)="onRowTable($event)"
+                                      (createConfirm)="onCreateConfirmconsultor($event)"
+                   (editConfirm)="onSaveConfirmconsultor($event)"
+                                      (deleteConfirm)="onDeleteConfirmconsultor($event)">
+                     </ng2-smart-table>
+              </nb-accordion-item-body>
+            </nb-accordion-item>
+
+            <nb-accordion-item #item>
+              <nb-accordion-item-header>
+                      Contacto de visita
+                  </nb-accordion-item-header>
+                <nb-accordion-item-body class="card-listar">
+                <div class="row">
+                  <div class="col-md-12 text-right">
+                    <button nbButton status="primary" (click)="accion('openModalcontacto')">
+                      <nb-icon icon="plus"></nb-icon>
+                    </button>
+                    <button nbButton status="primary" (click)="eliminarTable('visita')">
+                      <nb-icon icon="trash"></nb-icon>
+                    </button>
+                  </div>
+                </div>
+                   <ng2-smart-table [settings]="settings_visita" [source]="visitam" (rowSelect)="onRowTable($event)"
+                                      (createConfirm)="onCreateConfirmvisita($event)"
+                   (editConfirm)="onSaveConfirmvisita($event)"
+                                      (deleteConfirm)="onDeleteConfirmvisita($event)">
+                     </ng2-smart-table>
+              </nb-accordion-item-body>
+            </nb-accordion-item>
+          </nb-accordion>
+        </div>
+      </div>
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+    <div class="row">
+      <div class="col-lg-10 col-xs-12 text-left">
+        <span class="required" style="padding: 10px;">Campos Obligatorios <strong>(*)</strong></span>
+      </div>
+      <div class="col-lg-2 col-xs-12 text-right">
+        <button nbButton status="primary" [disabled]="!spcForm.valid" (click)="save()" outline
+        (click)="startLoading()" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="tiny"
+          nbSpinnerMessage="">GUARDAR</button>
+      </div>
+    </div>
+  </nb-card-footer>
+</nb-card>

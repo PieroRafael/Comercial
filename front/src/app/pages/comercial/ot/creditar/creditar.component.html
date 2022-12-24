@@ -1,0 +1,128 @@
+<nb-card>
+  <nb-card-header>
+    <h4>
+      Registro de nueva orden de trabajo
+    </h4>
+  </nb-card-header>
+  <nb-card-body>
+    <div [formGroup]="otForm" class="container">
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label for="input-codigo" class="label">Código <span class="required">(*)</span></label>
+            <input nbInput autofocus fullWidth fieldSize="medium" id="input-codigo" formControlName="codigo"
+              [status]="(codigo?.errors?.required || codigo?.hasError('minLength') || codigo?.hasError('maxLength')) && codigo.touched || codigo.dirty ? (codigo.invalid  ? 'danger' : 'success') : 'basic'">
+            <ngx-validation-message label="Codigo" [showMinLength]="codigo?.hasError('minlength')"
+              [showMaxLength]="codigo?.hasError('maxlength')"
+              [showRequired]="codigo?.errors?.required && codigo.touched" minLength=7 maxLength=7>
+            </ngx-validation-message>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div class="form-group">
+            <label for="input-codigospc" class="label">SPC <span class="required">(*)</span></label>
+            <nb-select autofocus fullWidth fieldSize="medium" (selectedChange)="activar()" id="input-codigospc"
+              formControlName="codigospc"
+              [status]="codigospc.dirty ? (codigospc.invalid  ? 'danger' : 'success') : 'basic'">
+              <nb-option [value]="spc.codigo" *ngFor="let spc of spcSelect">
+                <td> {{ spc.codigo }} </td>
+              </nb-option>
+            </nb-select>
+            <ngx-validation-message label="SPC aprobada"
+              [showRequired]="codigospc?.errors?.required && codigospc.touched">
+            </ngx-validation-message>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <ng-template [ngIf]="requeridofechac">
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="" style="display: block;"> {{fechahoy}} </label>
+              <label for="input-fechaactual" class="label">Fecha de Aprobación </label>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template [ngIf]="requeridofechae">
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="input-fechaaprobacion" class="label">Fecha de Aprobación</label>
+              <input nbInput fullWidth fieldSize="medium" formControlName="fechaaprobacion"
+                [status]="fechaaprobacion.dirty ? (fechaaprobacion.invalid  ? 'danger' : 'success') : 'basic'" />
+              <ngx-validation-message label="Fecha aprobacion"
+                [showRequired]="fechaaprobacion?.errors?.required && fechaaprobacion.touched">
+              </ngx-validation-message>
+            </div>
+          </div>
+        </ng-template>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label for="input-nombreproyecto" class="label">Nombre del proyecto </label>
+            <input nbInput [readonly]="nombreread" fullWidth fieldSize="medium" id="input-nombreproyecto"
+              formControlName="nombreproyecto">
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label for="input-ubicacion" class="label">Ubicación</label>
+            <input nbInput [readonly]="ubicacionread" fullWidth fieldSize="medium" id="input-ubicacion"
+              formControlName="ubicacion">
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label for="input-cliente" class="label">Cliente </label>
+            <input nbInput [readonly]="clienteread" fullWidth fieldSize="medium" id="input-cliente"
+              formControlName="cliente">
+          </div>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="input-tipoproyecto" class="label">Tipo de Proyecto </label>
+            <nb-checkbox (checkedChange)="toggle($event)" (checkedChange)="onActive()" #checkbox fullWidth
+              fieldSize="medium" status="primary" formControlName=tipoproyecto>Adicional</nb-checkbox>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <ng-template [ngIf]="requeridoSelect">
+              <label for="input-otprincipal" class="label">OT <span class="required">(*)</span></label>
+              <nb-select fullWidth fieldSize="medium" id="input-ot" formControlName="otprincipal"
+                [status]="otprincipal.dirty ? (otprincipal.invalid  ? 'danger' : 'success') : 'basic'">
+                <nb-option [value]="otprincipal.idot" *ngFor="let otprincipal of otSelect">
+                  <td> {{ otprincipal.codigo }} </td>
+                </nb-option>
+              </nb-select>
+              <ngx-validation-message label="Ot Principal"
+                [showRequired]="otprincipal?.errors?.required && otprincipal.touched">
+              </ngx-validation-message>
+            </ng-template>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <label for="input-file" class="label">Selección de archivos <span class="required">(*)</span></label>
+          <input type="file" nbInput multiple fullWidth formControlName="file"
+            (change)="handleDocumento($event.target.files)"
+            [status]="(file?.errors?.required) && file.touched || file.dirty ? (file.invalid  ? 'danger' : 'success') : 'basic'">
+          <ngx-validation-message label="Seleccion de archivos" [showRequired]="file?.errors?.required && file.touched">
+          </ngx-validation-message>
+        </div>
+      </div>
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+    <div class="row">
+      <div class="col-lg-10 col-xs-12 text-left">
+        <span class="required" style="padding: 10px;">Campos Obligatorios <strong>(*)</strong></span>
+      </div>
+      <div class="col-lg-2 col-xs-12 text-right">
+        <button nbButton status="primary" [disabled]="!otForm.valid" (click)="save()" outline (click)="startLoading()"
+          [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="tiny" nbSpinnerMessage="">GUARDAR</button>
+      </div>
+    </div>
+  </nb-card-footer>
+</nb-card>

@@ -1,0 +1,36 @@
+<nb-card>
+    <nb-card-header>
+        <h4>
+            Lista de contactos: {{ cliente }}
+        </h4>
+    </nb-card-header>
+    <nb-card-body class="card-listar">
+        <div class="form-group row">
+            <div class="col-md-3 col-xs-12">
+                <input nbInput autofocus fullWidth #search class="search" type="text" placeholder="Buscar..."
+                    (keyup)="onSearch(search.value)">
+            </div>
+            <div class="col-md-9 text-right">
+                <button nbTooltip="Nuevo elemento" nbTooltipStatus="primary" nbButton status="primary"
+                    (click)="accion('crear')" outline>
+                    <nb-icon icon="plus"></nb-icon>
+                </button>
+                <button nbTooltip="Editar" nbTooltipStatus="success" nbTooltipColor="none" (click)="accion('editar')"
+                    nbButton status="primary" outline>
+                    <nb-icon icon="edit-2"></nb-icon>
+                </button>
+                <button nbTooltip="Descarga" nbTooltipColor="none" nbTooltipStatus="primary" nbButton status="primary"
+                    (click)="accion('descarga')" outline>
+                    <nb-icon icon="people"></nb-icon>
+                </button>
+                <button nbTooltip="Eliminar" nbTooltipStatus="danger" nbTooltipColor="none" nbButton
+                    (click)="accion('eliminar')" status="primary" outline>
+                    <nb-icon icon="trash"></nb-icon>
+                </button>
+            </div>
+        </div>
+        <ng2-smart-table class="example-smart-table" [settings]="settings" [source]="source"
+            (rowSelect)="onRowSelect($event)">
+        </ng2-smart-table>
+    </nb-card-body>
+</nb-card>

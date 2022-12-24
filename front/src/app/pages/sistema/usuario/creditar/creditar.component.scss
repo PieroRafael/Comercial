@@ -1,0 +1,27 @@
+ @import '~@nebular/theme/styles/core/mixins';
+ @import '../../../../@theme/styles/themes';
+
+ @include nb-install-component() {
+   button[nbButton] {
+     margin: 0.25rem;
+   }
+
+   button[nbButton].appearance-outline {
+     margin: 0px;
+   }
+
+   .container {
+     display        : flex;
+     flex-wrap      : wrap;
+     justify-content: space-around;
+
+   }
+
+   :host {
+
+     button {
+       @include nb-ltr(margin, 0 0.75rem 0 0);
+       @include nb-rtl(margin, 0 0 0 0.75rem);
+     }
+   }
+ }

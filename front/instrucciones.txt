@@ -1,0 +1,51 @@
+## SCSS
+
+Cambios en los colores base del tema Material Dark en el SCSS.
+Ruta: front\src\app\@theme\styles\material\_material-dark.scss
+Linea: 5, color-primary-100: #fff2f7,
+Linea: 6, color-primary-200: #ffd4e3,
+Linea: 7, color-primary-300: #fc9abc,
+Linea: 8, color-primary-400: #f24681,
+Linea: 9, color-primary-500: #dd6b7a,
+Linea: 10, color-primary-600: #df5c6e,
+Linea: 11, color-primary-700: #a80d43,
+Linea: 12, color-primary-800: #870935,
+Linea: 13, color-primary-900: #70062a,
+Linea: 14, color-primary-1000: #194971,
+Linea: 27, color-success-500: #44880d,
+Linea: 141, color-primary-default: color-primary-600,
+
+Cambios en los colores base del tema Material Light en el SCSS.
+Ruta: front\src\app\@theme\styles\material\_material-light.scss
+Linea: 5, color-primary-100: #82bceb,
+Linea: 6, color-primary-200: #49a0e8,
+Linea: 7, color-primary-300: #297dc2,
+Linea: 8, color-primary-400: #2068a2,
+Linea: 9, color-primary-500: #194971,
+Linea: 10, color-primary-600: #133c5e,
+Linea: 11, color-primary-700: #0a2841,
+Linea: 12, color-primary-800: #041d31,
+Linea: 13, color-primary-900: #020c15,
+Linea: 26, color-success-500: #44880d,
+Linea: 140, color-primary-default: color-primary-500,
+
+Cambio de estilo en cabecera de smart-table.
+Ruta: node_modules/@nebular/theme/styles/global/tables/_smart-table.theme.scss
+Nueva linea: 42-46, th a { color: white; }
+Linea: 49, color: white;
+Linea: 75, background: nb-theme(color-primary-500);
+Nueva linea: 76, text-align: center;
+Linea: 88-90, comentar
+
+Auto select 1 fila
+Ruta: node_modules/ng2-smart-table/__ivy_ngcc__/fesm2015/ng2-smart-table.js
+Linea: 931 (this.willSelect = 'none';)
+Linea: 983-986, comentar
+
+# NPM
+
+Ejecutar comandos en PowerShell-Admin:
+
+npm install -g --production windows-build-tools
+npm install -g node-gyp
+Install pyton last, opcional

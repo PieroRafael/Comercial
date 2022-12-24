@@ -1,0 +1,79 @@
+<nb-card>
+  <nb-card-header>
+    <h4>
+      Formulario de cliente
+    </h4>
+  </nb-card-header>
+  <nb-card-body>
+    <div [formGroup]="clienteForm" class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="input-ruc" class="label">RUC <span class="required">(*)</span></label>
+            <input class="form-control" nbInput autofocus fullWidth fieldSize="medium" id="input-ruc"
+              formControlName="ruc" [status]="(ruc?.errors?.required || ruc?.hasError('minlength') || ruc?.hasError('maxlength') || 
+              ruc?.hasError('pattern')) && ruc.touched ? 'danger' : 'primary'">
+            <ngx-validation-message label="RUC" [showMinLength]="ruc?.hasError('minlength')"
+              [showMaxLength]="ruc?.hasError('maxlength')" [showPattern]="ruc?.hasError('pattern')"
+              [showRequired]="ruc?.errors?.required && ruc.touched" minLength=11 maxLength=11>
+            </ngx-validation-message>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div class="form-group">
+            <label for="input-nombre" class="label">Razon Social<span class="required">(*)</span></label>
+            <input class="form-control" nbInput fullWidth fieldSize="medium" formControlName="razonsocial"
+              [status]="(razonsocial?.errors?.required ) && razonsocial.touched ? 'danger' : 'primary'">
+            <ngx-validation-message label="Razon Social"
+              [showRequired]="razonsocial?.errors?.required && razonsocial.touched">
+            </ngx-validation-message>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="input-telefono" class="label">Teléfono <span class="required">(*)</span></label>
+            <input class="form-control" nbInput fullWidth fieldSize="medium" id="input-telefono"
+              formControlName="telefono" [status]="(telefono?.errors?.required || telefono?.hasError('minLength') || telefono?.hasError('maxLength') || 
+              telefono?.hasError('pattern')) && telefono.touched ? 'danger' : 'primary'">
+            <ngx-validation-message label="Telefono" [showMinLength]="telefono?.hasError('minlength')"
+              [showMaxLength]="telefono?.hasError('maxlength')" [showPattern]="telefono?.hasError('pattern')"
+              [showRequired]="telefono?.errors?.required && telefono.touched" minLength=9 maxLength=9>
+            </ngx-validation-message>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div class="form-group">
+            <label for="input-direccion" class="label">Dirección <span class="required">(*)</span></label>
+            <input class="form-control" nbInput fullWidth fieldSize="medium" formControlName="direccion"
+              [status]="(direccion?.errors?.required || direccion?.hasError('minLength')) && direccion.touched ? 'danger' : 'primary'">
+            <ngx-validation-message label="Direccion" [showMinLength]="direccion?.hasError('minlength')"
+              [showRequired]="direccion?.errors?.required && direccion.touched" minLength=10>
+            </ngx-validation-message>
+          </div>
+        </div>
+
+        <div class="col-md-9">
+          <div class="form-group">
+            <label for="input-paginaweb" class="label">Pagina Web</label>
+            <input class="form-control" nbInput fullWidth fieldSize="medium" formControlName="paginaweb">
+          </div>
+        </div>
+      </div>
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+    <div class="row">
+      <div class="col-lg-10 col-xs-12 text-left">
+        <span class="required" style="padding: 10px;">Campos Obligatorios <strong>(*)</strong></span>
+      </div>
+      <div class="col-lg-2 col-xs-12 text-right">
+        <button nbButton status="primary" [disabled]="!clienteForm.valid" (click)="save()" outline
+          (click)="startLoading()" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="tiny"
+          nbSpinnerMessage="">GUARDAR</button>
+      </div>
+    </div>
+  </nb-card-footer>
+</nb-card>

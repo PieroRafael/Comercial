@@ -1,0 +1,15 @@
+<nb-card size="large">
+  <nb-card-header>Permisos</nb-card-header>
+  <nb-card-body>
+    <nb-list>
+      <nb-list-item *ngFor="let permiso of permisos">
+        <input type="checkbox" [(ngModel)]="permiso.selected" value="{{permiso.etiqueta}}" />
+        {{permiso.etiqueta}}
+      </nb-list-item>
+    </nb-list>
+  </nb-card-body>
+  <nb-card-footer>
+    <button nbButton status="primary" (click)="save()">GUARDAR</button>
+    <button nbButton status="danger" (click)="dismiss()">Cerrar</button>
+  </nb-card-footer>
+</nb-card>

@@ -1,0 +1,43 @@
+<nb-card>
+    <nb-card-header>
+      <h4>
+        Registro de documento a OTC-123
+      </h4>
+    </nb-card-header>
+    <nb-card-body>
+      <div [formGroup]="documentotForm" class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="input-areas" class="label">Seleccione las áreas a considerar <span
+                  class="required">(*)</span></label>
+              <nb-select class="multiple-select" multiple placeholder="´Áreas de la organización" fullWidth>
+                <nb-option value="1">COMERCIAL</nb-option>
+                <nb-option value="2">RECURSOS HUMANOS</nb-option>
+                <nb-option value="3">SISTEMAS</nb-option>
+                <nb-option value="4">PINTURA</nb-option>
+              </nb-select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="input-documento" class="label">Seleccione un documento <span class="required">(*)</span></label>
+              <input type = "file" nbInput multiple fullWidth 
+              [status]="(documento?.errors?.required || documento?.hasError('minlength') || documento?.hasError('maxlength')) && documento.touched ? 'danger' : 'primary'"
+              class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+    </nb-card-body>
+    <nb-card-footer>
+      <div class="row">
+        <div class="col-lg-10 col-xs-12 text-left">
+          <span class="required" style="padding: 10px;">Campos Obligatorios <strong>(*)</strong></span>
+        </div>
+        <div class="col-lg-2 col-xs-12 text-right">
+          <button nbButton status="primary" [disabled]="!documentotForm.valid"  outline>GUARDAR</button>
+        </div>
+      </div>
+    </nb-card-footer>
+  </nb-card>

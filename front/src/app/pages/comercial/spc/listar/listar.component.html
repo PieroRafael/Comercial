@@ -1,0 +1,48 @@
+<nb-card>
+    <nb-card-header>
+        <h4>
+            Lista de SPC's
+        </h4>
+    </nb-card-header>
+    <nb-card-body class="card-listar">
+        <div class="form-group row">
+            <div class="col-lg-3 col-xs-12">
+                <input nbInput autofocus fullWidth #search class="search" type="text" placeholder="Buscar..."
+                    (keyup)="onSearch(search.value)">
+            </div>
+            <div class="col-md-9 text-right">
+                <button nbTooltip="Nuevo elemento" nbTooltipColor="none" nbTooltipStatus="primary" nbButton
+                    status="primary" (click)="accion('crear')" outline>
+                    <nb-icon icon="plus"></nb-icon>
+                </button>
+                <button nbTooltip="Editar" nbTooltipStatus="success" nbTooltipColor="none" (click)="accion('editar')"
+                    nbButton status="primary" outline (click)="accion('editar')">
+                    <nb-icon icon="edit-2"></nb-icon>
+                </button>
+                <button nbTooltip="Documentos" nbTooltipStatus="primary" nbTooltipColor="none" nbButton status="primary"
+                    (click)="accion('documento')" outline>
+                    <nb-icon icon="file"></nb-icon>
+                </button>
+                <button nbTooltip="Eliminar" (click)="accion('eliminar')" nbTooltipStatus="danger" nbTooltipColor="none"
+                    nbButton status="primary" outline>
+                    <nb-icon icon="trash"></nb-icon>
+                </button>
+                <button nbTooltip="Descarga" nbTooltipColor="none" nbTooltipStatus="primary" nbButton status="primary"
+                    (click)="accion('descarga')" outline>
+                    <nb-icon icon="people"></nb-icon>
+                </button>
+                <button nbTooltip="Detalle SPC" (click)="accion('detalle')" nbTooltipStatus="danger"
+                    nbTooltipColor="none" nbButton status="primary" outline>
+                    <nb-icon icon="edit-2"></nb-icon>
+                </button>
+                <button nbTooltip="Presupuesto" (click)="accion('presupuesto')" nbTooltipStatus="danger"
+                    nbTooltipColor="none" nbButton status="primary" outline>
+                    <nb-icon icon="people"></nb-icon>
+                </button>
+            </div>
+        </div>
+        <ng2-smart-table class="example-smart-table" [settings]="settings" [source]="source"
+            (rowSelect)="onRowSelect($event)">
+        </ng2-smart-table>
+    </nb-card-body>
+</nb-card>

@@ -1,0 +1,12 @@
+<nb-card size="small">
+    <nb-card-header>Documentos</nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table class="example-smart-table" [settings]="settings" [source]="source"
+            (rowSelect)="onRowSelect($event)">
+      </ng2-smart-table>
+    </nb-card-body>
+    <nb-card-footer>
+      <button nbButton status="primary" (click)="save()">GUARDAR</button>
+      <button nbButton status="danger" (click)="cancelar()">Cerrar</button>
+    </nb-card-footer>
+</nb-card>

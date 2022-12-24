@@ -1,0 +1,53 @@
+<nb-card>
+  <nb-card-header>
+    <h4>
+      Registro de documento a OTC-123
+    </h4>
+  </nb-card-header>
+  <nb-card-body>
+    <div [formGroup]="documentotForm" class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="input-areas" class="label">Seleccione las áreas a considerar <span
+                class="required">(*)</span></label>
+            <nb-select class="multiple-select" multiple placeholder="´Áreas de la organización"
+              [formControl]="listArea">
+              <nb-option *ngFor="let listArea of areasSelect" [value]="listArea.nombre">
+                {{ listArea.nombre}}
+              </nb-option>
+            </nb-select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="input-documento" class="label">Seleccione un documento <span class="required">(*)</span></label>
+            <input type="file" nbInput multiple fullWidth (change)="handleDocumento($event.target.files)" enabled>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="input-descripcion" class="label">Descripción </label>
+            <input nbInput fullWidth fieldSize="medium" formControlName="descripcion"
+              [status]="descripcion.dirty ? (descripcion.invalid  ? 'danger' : 'success') : 'primary'" />
+            <ngx-validation-message label="Descripción" [showMinLength]="descripcion.hasError('minlength')"
+              [showRequired]="descripcion.errors?.required && descripcion.touched" minLength=4>
+            </ngx-validation-message>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+    <div class="row">
+      <div class="col-lg-10 col-xs-12 text-left">
+        <span class="required" style="padding: 10px;">Campos Obligatorios <strong>(*)</strong></span>
+      </div>
+      <div class="col-lg-2 col-xs-12 text-right">
+        <button nbButton status="primary" [disabled]="!documentotForm.valid" (click)="save()" outline
+          (click)="startLoading()" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="tiny"
+          nbSpinnerMessage="">GUARDAR</button>
+      </div>
+    </div>
+  </nb-card-footer>
+</nb-card>

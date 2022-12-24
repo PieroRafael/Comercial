@@ -1,0 +1,47 @@
+<nb-card>
+    <nb-card-header>
+        <h4>
+            Formulario de Unidad
+        </h4>
+    </nb-card-header>
+    <nb-card-body>
+        <div [formGroup]="unidadForm" class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="input-nombre" class="label">Nombre <span class="required">(*)</span></label>
+                        <input class="form-control" nbInput autofocus fullWidth fieldSize="medium" id="input-nombre"
+                            formControlName="nombre"
+                            [status]="(nombre?.errors?.required || nombre?.hasError('minlength')) && nombre.touched ? 'danger' : 'primary'">
+                        <ngx-validation-message label="Nombre" [showMinLength]="nombre?.hasError('minlength')"
+                            [showRequired]="nombre?.errors?.required && nombre.touched" minLength=4>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="form-group">
+                        <label for="input-descripcion" class="label">Descripción<span class="required">(*)</span></label>
+                        <input class="form-control" nbInput fullWidth fieldSize="medium" formControlName="descripcion"
+                            [status]="(descripcion?.errors?.required || descripcion?.hasError('minlength')) && descripcion.touched ? 'danger' : 'primary'">
+                        <ngx-validation-message label="Descripción" [showMinLength]="descripcion?.hasError('minlength')"
+                            [showRequired]="descripcion?.errors?.required && descripcion.touched">
+                        </ngx-validation-message>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nb-card-body>
+    <nb-card-footer>
+        <div class="row">
+            <div class="col-lg-10 col-xs-12 text-left">
+                <span class="required" style="padding: 10px;">Campos Obligatorios <strong>(*)</strong></span>
+            </div>
+            <div class="col-lg-2 col-xs-12 text-right">
+                <button nbButton status="primary" [disabled]="!unidadForm.valid" (click)="save()"
+                    outline (click)="startLoading()"
+                    [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="tiny"
+                    nbSpinnerMessage="">GUARDAR</button>
+            </div>
+        </div>
+    </nb-card-footer>
+</nb-card>

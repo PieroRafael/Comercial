@@ -1,0 +1,52 @@
+<nb-card>
+  <nb-card-body>
+    <nb-stepper orientation="horizontal">
+      <nb-step [label]="labelOne">
+        <ng-template #labelOne>Datos SPC</ng-template>
+        <h4>Datos SPC: </h4>
+        <p>Código: {{dcodigo}} </p>
+        <p>Cliente: {{dcliente}} </p>
+        <p>Proyecto: {{dproyecto}} </p>
+        <p>Tipo: {{dtipo}} </p>
+        <p>Ubicación: {{dubicacion}} </p>
+        <button nbButton disabled nbStepperNext>prev</button>
+        <button nbButton nbStepperNext>next</button>
+      </nb-step>
+      <nb-step [label]="labelTwo">
+        <ng-template #labelTwo>Fechas</ng-template>
+        <h4>Fechas</h4>
+        <p>Fecha de entrada: {{dfechaentrada}} </p>
+        <p>Fecha de envio de consultas: {{dfechaenvioconsulta}} </p>
+        <p>Fecha de absolución: {{dfechaabsolucion}} </p>
+        <p>Fecha de entrega: {{dfechaentrega}} </p>
+        <p>Fecha de visita técnica: {{dfechavisitatecnica}} </p>
+        <p>Fecha de reunión: {{dfechareunion}} </p>
+        <button nbButton nbStepperPrevious>prev</button>
+        <button nbButton nbStepperNext>next</button>
+      </nb-step>
+      <nb-step [label]="labelThree">
+        <ng-template #labelThree>Personas</ng-template>
+        <h4>Personas</h4>        
+        <p>Persona a quien se dirige el presupuesto:  </p>
+        <div *ngFor="let ot of dconsulta" >
+          {{ot.nombre}}
+
+        </div> 
+        <p>Persona a quien se dirigen las consultas:  </p>
+        <div *ngFor="let ot of dtecnica" >
+          {{ot.nombre}}
+
+        </div> 
+        <p>Contacto de visita: </p>
+        <div *ngFor="let ot of dvisita" >
+          {{ot.nombre}}
+
+        </div> 
+        <p>Vendedor(de SC Ingenieria y Construcción): {{dvendedor}} </p> 
+
+        <button nbButton nbStepperPrevious>prev</button>
+        <button nbButton nbStepperNext>next</button>
+      </nb-step>
+    </nb-stepper>
+  </nb-card-body>
+</nb-card>

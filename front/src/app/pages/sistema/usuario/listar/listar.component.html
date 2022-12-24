@@ -1,0 +1,28 @@
+<nb-card>
+  <nb-card-header>
+    <h2>Lista de usuarios</h2>
+  </nb-card-header>
+
+  <nb-card-body>
+    <div class="form-group row">
+      <div class="col-md-3">
+        <input nbInput fullWidth placeholder="Buscar">
+      </div>
+      <div class="col-md-9 text-right">
+        <button nbTooltip="Nuevo" nbTooltipStatus="primary" nbButton status="primary" routerLink="../crear" outline>
+          <nb-icon icon="plus"></nb-icon>
+        </button>
+        <button nbTooltip="Editar" nbTooltipStatus="success" nbButton status="primary" (click)="accion('editar')"
+          outline>
+          <nb-icon icon="edit-2"></nb-icon>
+        </button>
+        <button nbTooltip="Eliminar" nbTooltipStatus="danger" nbButton status="primary" (click)="accion('eliminar')"
+          outline>
+          <nb-icon icon="trash"></nb-icon>
+        </button>
+      </div>
+    </div>
+    <ng2-smart-table [settings]="settings" [source]="source" (rowSelect)="onRowSelect($event)">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

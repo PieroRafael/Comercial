@@ -1,0 +1,112 @@
+<nb-card>
+  <nb-card-header>
+    <h4>
+      Registro de nuevo contacto
+    </h4>
+  </nb-card-header>
+  <nb-card-body>
+    <div [formGroup]="contactoForm" class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="input-cliente" class="label">Cliente <span class="required">(*)</span></label>
+            <input #autoInput class="form-control" nbInput autofocus fullWidth fieldSize="medium"
+              formControlName="razonsocial"  (input)="onChange()" [nbAutocomplete]="cliente"
+              [status]="razonsocial.dirty ? (razonsocial.invalid  ? 'danger' : 'success') : 'primary'" />
+            <nb-autocomplete #cliente (selectedChange)="onSelectionChange($event)">
+              <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option.razonsocial">
+                {{ option.razonsocial }}
+              </nb-option>
+            </nb-autocomplete>
+            <ngx-validation-message label="Cliente"
+              [showRequired]="razonsocial?.errors?.required && razonsocial.touched">
+            </ngx-validation-message>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="input-unidad" class="label">Unidad <span class="required">(*)</span></label>
+            <nb-select autofocus fullWidth fieldSize="medium" (click)="click()" (selectedChange)="validar()" id="input-unidad" formControlName="unidad"
+              [status]="unidad?.errors?.required && unidad.dirty ? (unidad.invalid  ? 'danger' : 'success') : 'basic'">
+              <nb-option [value]="unidad.nombre" *ngFor="let unidad of unidadSelect">
+                <td> {{ unidad.nombre }} </td>
+              </nb-option>
+            </nb-select>
+            <ngx-validation-message label="Unidad"
+              [showRequired]="unidad?.errors?.required && unidad.touched">
+            </ngx-validation-message>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="input-nombre" class="label">Nombre <span class="required">(*)</span></label>
+            <input class="form-control" nbInput fullWidth fieldSize="medium" formControlName="nombre" [status]="(nombre?.errors?.required || 
+            nombre?.hasError('minLength') || nombre?.hasError('pattern')) && nombre.touched || 
+            nombre.dirty ? (nombre.invalid  ? 'danger' : 'success') : 'primary'">
+            <ngx-validation-message label="Nombre" [showRequired]="nombre?.errors?.required && nombre.touched"
+              [showPattern]="nombre?.hasError('pattern')">
+            </ngx-validation-message>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="input-correo" class="label">Correo <span class="required">(*)</span></label>
+            <input class="form-control" nbInput fullWidth fieldSize="medium" formControlName="correo" [status]="(correo?.errors?.required || correo?.hasError('pattern')) && correo.touched || 
+              correo.dirty ? (correo.invalid  ? 'danger' : 'success') : 'primary'" />
+            <ngx-validation-message label="Correo" [showPattern]="correo?.hasError('pattern')"
+              [showRequired]="correo?.errors?.required && correo.touched" [showPattern]="correo?.hasError('pattern')">
+            </ngx-validation-message>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="input-telefono" class="label">Teléfono</label>
+            <input class="form-control" nbInput fullWidth fieldSize="medium" id="input-telefono"
+              formControlName="telefono"
+              [status]="(telefono?.hasError('pattern') || telefono?.hasError('minLength') ||
+              telefono?.hasError('maxLength')) && telefono.touched || telefono.dirty ? (telefono.invalid  ? 'danger' : 'success') : 'primary'" />
+            <ngx-validation-message label="Telefono" [showMinLength]="telefono?.hasError('minlength')"
+              [showMaxLength]="telefono?.hasError('maxlength')" [showPattern]="telefono?.hasError('pattern')"
+              minLength=9 maxLength=9>
+            </ngx-validation-message>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="input-celular" class="label">Celular <span class="required">(*)</span></label>
+            <input class="form-control" nbInput fullWidth fieldSize="medium" id="input-celular"
+              formControlName="celular"
+              [status]="(celular?.errors?.required || celular?.hasError('pattern') || celular?.hasError('minLength') ||
+              celular?.hasError('maxLength')) && celular.touched || celular.dirty ? (celular.invalid  ? 'danger' : 'success') : 'primary'" />
+            <ngx-validation-message label="Celular" [showMinLength]="celular?.hasError('minlength')"
+              [showMaxLength]="celular?.hasError('maxlength')" [showPattern]="celular?.hasError('pattern')"
+              [showRequired]="celular?.errors?.required && celular.touched" minLength=9 maxLength=9>
+            </ngx-validation-message>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="input-cargo" class="label">Cargo </label>
+            <input class="form-control" nbInput fullWidth fieldSize="medium" id="input-cargo"
+              formControlName="cargo">
+          </div>
+        </div>
+      </div>
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+    <div class="row">
+      <div class="col-lg-10 col-xs-12 text-left">
+        <span class="required" style="padding: 10px;">Campos Obligatorios <strong>(*)</strong></span>
+      </div>
+      <div class="col-lg-2 col-xs-12 text-right">
+        <button nbButton status="primary" [disabled]="!contactoForm.valid" (click)="save()"
+          outline (click)="startLoading()"
+          [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="tiny"
+          nbSpinnerMessage="">GUARDAR</button>
+      </div>
+    </div>
+  </nb-card-footer>
+</nb-card>
